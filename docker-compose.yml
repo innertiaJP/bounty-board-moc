@@ -1,0 +1,10 @@
+version: '3'
+services:
+  node:
+    restart: always
+    build: .
+    container_name: 'bounty-board-moc'
+    working_dir: '/root/src'
+    tty: true
+    volumes:
+      - ${SRC_PATH}:/root/src
