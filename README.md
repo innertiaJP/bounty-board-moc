@@ -1,1 +1,1 @@
-This is a moc.
+This is a mock.
