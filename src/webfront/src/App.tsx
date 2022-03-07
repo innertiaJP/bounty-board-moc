@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { Heading, Text, Stack, Box } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import abi from "./utils/SendEth.json";
 import "./App.css";
+import Bounty from "./components/Bounty";
+import { BountyItem } from "./types/BountyItem";
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
+  const props1: BountyItem = {
+    imageUrl:
+      "https://news.mynavi.jp/article/20210809-1942830/images/000b_l.jpg",
+    headMessage: "Tweet about project",
+    textMessage: "0.001 ETH",
+  };
+  const props2: BountyItem = {
+    imageUrl:
+      "https://www.preface.ai/blog/wp-content/uploads/2021/05/photo-1610563166150-b34df4f3bcd6.jpeg",
+    headMessage: "Create New Function",
+    textMessage: "0.005 ETH",
+  };
+  const props3: BountyItem = {
+    imageUrl:
+      "https://www.ldaustralia.org/app/uploads/2021/08/kid-writing-in-notebook-TX2KE7V-1536x1024.jpg",
+    headMessage: "Write New Article",
+    textMessage: "0.002 ETH",
+  };
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -85,26 +106,44 @@ function App() {
   }, []);
 
   return (
-    <div className="mainContainer">
-      <div className="dataContainer">
-        <div className="header">👋 Hey there!</div>
-
-        <div className="bio">
-          I am farza and I worked on self-driving cars so thats pretty cool
-          right? Connect your Ethereum wallet and wave at me!
-        </div>
-
-        <button type="button" className="waveButton" onClick={sendEth}>
-          sendEth
-        </button>
-
-        {!currentAccount && (
-          <button type="button" className="waveButton" onClick={connectWallet}>
-            Connect Wallet
-          </button>
-        )}
-      </div>
-    </div>
+    <>
+      <Stack
+        as={Box}
+        textAlign="center"
+        spacing={{ base: 8, md: 14 }}
+        py={{ base: 20, md: 36 }}
+      >
+        <Heading
+          fontWeight={600}
+          fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+          lineHeight="110%"
+        >
+          Bounty Board <br />
+        </Heading>
+        <Text as="span" fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}>
+          New Bounties
+        </Text>
+        <Bounty
+          imageUrl={props2.imageUrl}
+          headMessage={props2.headMessage}
+          textMessage={props2.textMessage}
+        />
+        <Bounty
+          imageUrl={props3.imageUrl}
+          headMessage={props3.headMessage}
+          textMessage={props3.textMessage}
+        />
+        <Text as="span" fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}>
+          You Completed
+        </Text>
+        <Bounty
+          imageUrl={props1.imageUrl}
+          headMessage={props1.headMessage}
+          textMessage={props1.textMessage}
+        />
+      </Stack>
+      ;
+    </>
   );
 }
 
