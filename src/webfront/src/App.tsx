@@ -10,29 +10,29 @@ import {
 } from "@chakra-ui/react";
 import "./App.css";
 import Bounty from "./components/Bounty";
-import { BountyItem } from "./types/BountyItem";
+import { BountyInfo } from "./types/BountyInfo";
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
-  const props1: BountyItem = {
+  const bounty1: BountyInfo = {
     imageUrl:
       "https://news.mynavi.jp/article/20210809-1942830/images/000b_l.jpg",
-    headMessage: "Tweet about project",
-    textMessage: "0.001 ETH",
+    title: "Tweet about the project",
+    price: "0.001 ETH",
     canClaim: true,
   };
-  const props2: BountyItem = {
+  const bounty2: BountyInfo = {
     imageUrl:
       "https://www.preface.ai/blog/wp-content/uploads/2021/05/photo-1610563166150-b34df4f3bcd6.jpeg",
-    headMessage: "Create New Function",
-    textMessage: "0.005 ETH",
+    title: "Create New Function",
+    price: "0.005 ETH",
     canClaim: false,
   };
-  const props3: BountyItem = {
+  const bounty3: BountyInfo = {
     imageUrl:
       "https://www.ldaustralia.org/app/uploads/2021/08/kid-writing-in-notebook-TX2KE7V-1536x1024.jpg",
-    headMessage: "Write New Article",
-    textMessage: "0.002 ETH",
+    title: "Write New Article",
+    price: "0.002 ETH",
     canClaim: false,
   };
 
@@ -163,25 +163,25 @@ function App() {
           New Bounties
         </Text>
         <Bounty
-          imageUrl={props2.imageUrl}
-          headMessage={props2.headMessage}
-          textMessage={props2.textMessage}
-          canClaim={props2.canClaim}
+          imageUrl={bounty2.imageUrl}
+          title={bounty2.title}
+          price={bounty2.price}
+          canClaim={bounty2.canClaim}
         />
         <Bounty
-          imageUrl={props3.imageUrl}
-          headMessage={props3.headMessage}
-          textMessage={props3.textMessage}
-          canClaim={props3.canClaim}
+          imageUrl={bounty3.imageUrl}
+          title={bounty3.title}
+          price={bounty3.price}
+          canClaim={bounty3.canClaim}
         />
         <Text as="span" fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}>
           You Completed
         </Text>
         <Bounty
-          imageUrl={props1.imageUrl}
-          headMessage={props1.headMessage}
-          textMessage={props1.textMessage}
-          canClaim={props1.canClaim}
+          imageUrl={bounty1.imageUrl}
+          title={bounty1.title}
+          price={bounty1.price}
+          canClaim={bounty1.canClaim}
         />
       </Stack>
       ;

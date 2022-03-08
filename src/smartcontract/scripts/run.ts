@@ -1,4 +1,3 @@
-/* eslint-disable no-process-exit */
 const hre = require("hardhat");
 
 const main = async () => {
