@@ -23,7 +23,7 @@ async function mainFunc() {
 
   const SendEthContractFactory = await hre.ethers.getContractFactory("SendEth");
   const sendEth = await SendEthContractFactory.deploy({
-    value: hre.ethers.utils.parseEther("0.001"),
+    value: hre.ethers.utils.parseEther("0.05"),
   });
   await sendEth.deployed();
   console.log("Contract deployed to:", sendEth.address);
