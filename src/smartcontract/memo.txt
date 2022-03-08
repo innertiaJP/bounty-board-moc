@@ -1,3 +1,0 @@
-Deploying contracts with account:  0x5452Db339A458c2d4934a1C67B79161853113127
-Account balance:  191539213956829563
-Contract deployed to: 0x6Aa1AE3605C7ce0038f97400FC7FCA718699bDB7

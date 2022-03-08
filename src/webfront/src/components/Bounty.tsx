@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import { ethers } from "ethers";
 import {
   Box,
@@ -21,16 +20,17 @@ import {
 } from "@chakra-ui/react";
 import React, { FC, useState } from "react";
 import abi from "../utils/SendEth.json";
-import { BountyItem } from "../types/BountyItem";
+import { BountyInfo } from "../types/BountyInfo";
 
+// ↓ liblary bug
 // eslint-disable-next-line react/function-component-definition
-const Bounty: FC<BountyItem> = (props) => {
+const Bounty: FC<BountyInfo> = ({ imageUrl, title, price, canClaim }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [sendEthTxnHash, setSendEthTxnHash] = useState("");
   const sendEth = async () => {
     try {
       const { ethereum } = window;
-      const contractAddress = "0x6Aa1AE3605C7ce0038f97400FC7FCA718699bDB7";
+      const contractAddress = "0x4f64ECa94989c4BCDB26c5d95C13C3AE81914353";
       const contractABI = abi.abi;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -94,27 +94,27 @@ const Bounty: FC<BountyItem> = (props) => {
             height={230}
             width={282}
             objectFit="cover"
-            src={props.imageUrl}
+            src={imageUrl}
           />
         </Box>
         <Stack pt={10} align="center">
           <Heading fontSize="2xl" fontFamily="body" fontWeight={500}>
-            {props.headMessage}
+            {title}
           </Heading>
           <Stack direction="row" align="center">
             <Text fontWeight={800} fontSize="xl">
-              {props.textMessage}
+              {price}
             </Text>
           </Stack>
         </Stack>
-        {props.canClaim && (
+        {canClaim && (
           <div>
-            <Button onClick={onOpen}>Claim Rewords</Button>
+            <Button onClick={onOpen}>Claim Rewards</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>You completed this task !</ModalHeader>
-                <ModalBody>You can claim rewords.</ModalBody>
+                <ModalBody>You can claim rewards.</ModalBody>
                 <ModalCloseButton />
                 <ModalFooter>
                   {sendEthTxnHash && (
