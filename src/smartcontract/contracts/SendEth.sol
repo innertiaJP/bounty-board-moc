@@ -10,7 +10,7 @@ contract SendEth {
     }
 
     function sendEth() public {
-        uint256 prizeAmount = 0.0001 ether;
+        uint256 prizeAmount = 0.001 ether;
         require(
             prizeAmount <= address(this).balance,
             "Trying to withdraw more money than the contract has."
