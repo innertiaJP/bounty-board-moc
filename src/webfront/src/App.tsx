@@ -9,8 +9,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Bounty from "./components/Bounty";
 import { BountyInfo } from "./types/BountyInfo";
+import TransferCoin from "./components/TransferCoin";
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -88,104 +90,122 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Box>
-        <Flex
-          minH="60px"
-          py={{ base: 2 }}
-          px={{ base: 4 }}
-          borderBottom={1}
-          borderStyle="solid"
-          align="center"
-          borderColor={useColorModeValue("gray.200", "gray.900")}
-        >
-          <Flex
-            flex={{ base: 1, md: "auto" }}
-            ml={{ base: -2 }}
-            display={{ base: "flex", md: "none" }}
-          />
-          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-            <Flex display={{ base: "none", md: "flex" }} ml={10} />
-          </Flex>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Box>
+                <Flex
+                  minH="60px"
+                  py={{ base: 2 }}
+                  px={{ base: 4 }}
+                  borderBottom={1}
+                  borderStyle="solid"
+                  align="center"
+                  borderColor={useColorModeValue("gray.200", "gray.900")}
+                >
+                  <Flex
+                    flex={{ base: 1, md: "auto" }}
+                    ml={{ base: -2 }}
+                    display={{ base: "flex", md: "none" }}
+                  />
+                  <Flex
+                    flex={{ base: 1 }}
+                    justify={{ base: "center", md: "start" }}
+                  >
+                    <Flex display={{ base: "none", md: "flex" }} ml={10} />
+                  </Flex>
 
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            justify="flex-end"
-            direction="row"
-            spacing={6}
-          >
-            {!currentAccount && (
-              <Button
-                onClick={connectWallet}
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize="sm"
-                fontWeight={600}
-                color="white"
-                bg="blue.400"
-                _hover={{
-                  bg: "blue.300",
-                }}
+                  <Stack
+                    flex={{ base: 1, md: 0 }}
+                    justify="flex-end"
+                    direction="row"
+                    spacing={6}
+                  >
+                    {!currentAccount && (
+                      <Button
+                        onClick={connectWallet}
+                        display={{ base: "none", md: "inline-flex" }}
+                        fontSize="sm"
+                        fontWeight={600}
+                        color="white"
+                        bg="blue.400"
+                        _hover={{
+                          bg: "blue.300",
+                        }}
+                      >
+                        Connect Wallet
+                      </Button>
+                    )}
+                    {currentAccount && (
+                      <Button
+                        display={{ base: "none", md: "inline-flex" }}
+                        fontSize="sm"
+                        fontWeight={600}
+                        color="white"
+                        bg="blue.400"
+                        _hover={{
+                          bg: "blue.300",
+                        }}
+                      >
+                        {currentAccount}
+                      </Button>
+                    )}
+                  </Stack>
+                </Flex>
+              </Box>
+              <Stack
+                as={Box}
+                textAlign="center"
+                spacing={{ base: 8, md: 14 }}
+                py={{ base: 20, md: 36 }}
               >
-                Connect Wallet
-              </Button>
-            )}
-            {currentAccount && (
-              <Button
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize="sm"
-                fontWeight={600}
-                color="white"
-                bg="blue.400"
-                _hover={{
-                  bg: "blue.300",
-                }}
-              >
-                {currentAccount}
-              </Button>
-            )}
-          </Stack>
-        </Flex>
-      </Box>
-      <Stack
-        as={Box}
-        textAlign="center"
-        spacing={{ base: 8, md: 14 }}
-        py={{ base: 20, md: 36 }}
-      >
-        <Heading
-          fontWeight={600}
-          fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
-          lineHeight="110%"
-        >
-          Bounty Board <br />
-        </Heading>
-        <Text as="span" fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}>
-          New Bounties
-        </Text>
-        <Bounty
-          imageUrl={bounty2.imageUrl}
-          title={bounty2.title}
-          price={bounty2.price}
-          canClaim={bounty2.canClaim}
+                <Heading
+                  fontWeight={600}
+                  fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+                  lineHeight="110%"
+                >
+                  Bounty Board <br />
+                </Heading>
+                <Text
+                  as="span"
+                  fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}
+                >
+                  New Bounties
+                </Text>
+                <Bounty
+                  imageUrl={bounty2.imageUrl}
+                  title={bounty2.title}
+                  price={bounty2.price}
+                  canClaim={bounty2.canClaim}
+                />
+                <Bounty
+                  imageUrl={bounty3.imageUrl}
+                  title={bounty3.title}
+                  price={bounty3.price}
+                  canClaim={bounty3.canClaim}
+                />
+                <Text
+                  as="span"
+                  fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}
+                >
+                  You Completed
+                </Text>
+                <Bounty
+                  imageUrl={bounty1.imageUrl}
+                  title={bounty1.title}
+                  price={bounty1.price}
+                  canClaim={bounty1.canClaim}
+                />
+              </Stack>
+            </>
+          }
         />
-        <Bounty
-          imageUrl={bounty3.imageUrl}
-          title={bounty3.title}
-          price={bounty3.price}
-          canClaim={bounty3.canClaim}
-        />
-        <Text as="span" fontSize={{ base: "1xl", sm: "2xl", md: "3xl" }}>
-          You Completed
-        </Text>
-        <Bounty
-          imageUrl={bounty1.imageUrl}
-          title={bounty1.title}
-          price={bounty1.price}
-          canClaim={bounty1.canClaim}
-        />
-      </Stack>
-      ;
-    </>
+        <Route path="/transfer-coin" element={<TransferCoin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
