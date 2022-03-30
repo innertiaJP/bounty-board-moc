@@ -19,6 +19,33 @@ function TransferCoin() {
   const [transferValue, setTransferValue] = useState("");
   const [sendCoinTxnHash, setSendCoinTxnHash] = useState("");
 
+  const innAddress = "0xc35B48Fe8CC02BdF813a8F3c7feAcA7a20307831";
+
+  const minABI = [
+    // transfer
+    {
+      constant: false,
+      inputs: [
+        {
+          name: "_to",
+          type: "address",
+        },
+        {
+          name: "_value",
+          type: "uint256",
+        },
+      ],
+      name: "transfer",
+      outputs: [
+        {
+          name: "",
+          type: "bool",
+        },
+      ],
+      type: "function",
+    },
+  ];
+
   const handleToAddressChange = (e: {
     target: { value: React.SetStateAction<string> };
   }) => setToAddress(e.target.value);
@@ -26,7 +53,7 @@ function TransferCoin() {
   const handleTransferValueChange = (e: {
     target: { value: React.SetStateAction<string> };
   }) => setTransferValue(e.target.value);
-  
+
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
@@ -84,6 +111,30 @@ function TransferCoin() {
           to: toAddress,
           value: ethers.utils.parseEther(transferValue),
         });
+        setSendCoinTxnHash(transferEthTxn.hash);
+        console.log("Mining...", transferEthTxn.hash);
+        await transferEthTxn.wait();
+        console.log("Mined -- ", transferEthTxn.hash);
+        console.log("sent eth");
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const transferToken = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(innAddress, minABI, signer);
+        const transferEthTxn = await contract.transfer(
+          toAddress,
+          ethers.utils.parseEther(transferValue)
+        );
         setSendCoinTxnHash(transferEthTxn.hash);
         console.log("Mining...", transferEthTxn.hash);
         await transferEthTxn.wait();
@@ -181,6 +232,7 @@ function TransferCoin() {
             <Input value={transferValue} onChange={handleTransferValueChange} />
           </FormControl>
           <Button onClick={transferCoin}>Transfer Eth</Button>
+          <Button onClick={transferToken}>Transfer Token</Button>
           {sendCoinTxnHash && (
             <Link href={`https://rinkeby.etherscan.io/tx/${sendCoinTxnHash}`}>
               View in Etherscan
